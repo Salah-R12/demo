@@ -9,4 +9,10 @@ homepage:
         _locale: '%app_locales%'
     defaults:
         template: default/homepage.html.twig
-        _locale: '%locale%'
+        _locale:
+
+product:
+    path:     /product
+    controller: App\Controller\ProductController::index
+
+
