@@ -30,7 +30,35 @@ class ProductController extends AbstractController
         // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
 
-        return new Response('Saved new product with id '.$product->getId());
+       // return new Response('Saved new product with id '.$product->getId());
+
+        return $this->render('product/index.html.twig', [
+            'controller_name' => 'ProductController',
+        ]);
+    }
+
+/**
+* @Route("/product/{id}", name="product_show")
+*/
+
+    public function show($id)
+    {
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->find($id);
+       // dd($product);
+
+        if (!$product) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+
+       // return new Response('Check out this great product: '.$product->getName());
+
+        // or render a template
+        // in the template, print things with {{ product.name }}
+       return $this->render('product/show.html.twig', ['product' => $product,'controller_name' => 'ProductController']);
     }
 
 }

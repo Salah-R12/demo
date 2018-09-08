@@ -15,4 +15,13 @@ product:
     path:     /product
     controller: App\Controller\ProductController::index
 
+product_show :
+    path:     /product/{id}
+    controller: App\Controller\ProductController::show
+    defaults:
+        id: 1
+        requirements:
+            id: '\d+'
+
+
 
