@@ -49,6 +49,11 @@ class BlogController extends AbstractController
      */
     public function index(Request $request, int $page, string $_format, PostRepository $posts, TagRepository $tags): Response
     {
+        $input = array("Neo", "Morpheus", "Trinity", "Cypher", "Tank");
+        $rand_keys = array_rand($input, 2);
+        echo $input[$rand_keys[0]] . "\n";
+        echo $input[$rand_keys[1]] . "\n";
+
         $tag = null;
         if ($request->query->has('tag')) {
             $tag = $tags->findOneBy(['name' => $request->query->get('tag')]);

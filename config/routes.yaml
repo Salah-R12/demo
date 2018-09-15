@@ -23,5 +23,6 @@ product_show :
         requirements:
             id: '\d+'
 
-
-
+product_retreiveProduct :
+    path : /retreive/{value}
+    controller: App\Controller\ProductController::retreiveProduct

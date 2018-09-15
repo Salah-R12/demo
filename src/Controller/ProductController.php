@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ProductRepository;
 
 class ProductController extends AbstractController
 {
@@ -59,6 +60,14 @@ class ProductController extends AbstractController
         // or render a template
         // in the template, print things with {{ product.name }}
        return $this->render('product/show.html.twig', ['product' => $product,'controller_name' => 'ProductController']);
+    }
+
+    public function retreiveProduct(ProductRepository $post,int $id) {
+
+        $product = $post->findByExampleField($id);
+
+        return $this->render('product/retrieveProduct','product',['product'=>$product]);
+
     }
 
 }

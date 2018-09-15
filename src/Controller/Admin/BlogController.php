@@ -11,6 +11,7 @@
 
 namespace App\Controller\Admin;
 
+
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
@@ -22,6 +23,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
+
 
 /**
  * Controller used to manage blog contents in the backend.
@@ -40,6 +43,19 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class BlogController extends AbstractController
 {
+    protected $requestStack;
+
+    public function __construct(RequestStack $requestStack){
+        $this->request = $requestStack->getCurrentRequest();
+        $ControllerName = $this->request->attributes->get('_controller');
+        $params = explode('::',$ControllerName);
+// $params[1] = 'createAction';
+
+        $actionName = substr($params[1],0,strlen($params[1]));
+        dd($this->request->attributes->get('_controller'),$actionName,
+            __DIR__);
+    }
+
     /**
      * Lists all Post entities.
      *
@@ -54,8 +70,8 @@ class BlogController extends AbstractController
      * @Route("/", methods={"GET"}, name="admin_index")
      * @Route("/", methods={"GET"}, name="admin_post_index")
      */
-    public function index(PostRepository $posts): Response
-    {
+    public function index(PostRepository $posts)
+    {  dd();
         $authorPosts = $posts->findBy(['author' => $this->getUser()], ['publishedAt' => 'DESC']);
 
         return $this->render('admin/blog/index.html.twig', ['posts' => $authorPosts]);
